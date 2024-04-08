@@ -18,10 +18,5 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Display info
-        run: |
-          pwd
-          tree -a -I '.git'
-          git status
-      - name: Run CI (sleep)
-        run: sleep 10
+      - name: Run Server CI (sleep)
+        run: sleep 60
