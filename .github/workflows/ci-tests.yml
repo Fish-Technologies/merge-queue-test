@@ -1,0 +1,27 @@
+name: Server CI
+
+on:
+  pull_request:
+    paths:
+      - 'server/**'
+  push:
+    paths:
+      - 'server/**'
+  merge_group:
+    paths:
+      - 'server/**'
+  workflow_dispatch:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Display info
+        run: |
+          pwd
+          tree -a -I '.git'
+          git status
+      - name: Run CI (sleep)
+        run: sleep 10
