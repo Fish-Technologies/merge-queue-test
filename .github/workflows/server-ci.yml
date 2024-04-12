@@ -14,5 +14,19 @@ jobs:
     name: Run Server CI
     runs-on: ubuntu-latest
     steps:
-      - name: Run Server CI (sleep)
-        run: sleep 60
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Server CI (conditional sleep)
+        run: |
+          if [ "${{ github.event.label.name }}" == "merge_queue" ]; then
+            echo "Running in merge queue..."
+            sleep 60
+            echo "Failing after sleep for demonstration"
+            exit 1
+          else
+            echo "Regular CI run..."
+            sleep 60
+          fi
+        env:
+          MERGE_QUEUE: ${{ github.event.label.name }}
