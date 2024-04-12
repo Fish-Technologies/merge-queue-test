@@ -19,7 +19,7 @@ jobs:
 
       - name: Run Server CI (conditional sleep)
         run: |
-          if [ "${{ github.event.label.name }}" == "merge_queue" ]; then
+          if [ "${{  github.event_name }}" == "merge_group" ]; then
             echo "Running in merge queue..."
             sleep 60
             echo "Failing after sleep for demonstration"
@@ -28,5 +28,3 @@ jobs:
             echo "Regular CI run..."
             sleep 60
           fi
-        env:
-          MERGE_QUEUE: ${{ github.event.label.name }}
