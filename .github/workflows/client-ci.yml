@@ -5,11 +5,8 @@ on:
     paths:
       - 'client/**'
   push:
-    branches:
-      - 'gh-readonly-queue/main/**'
     paths:
       - 'client/**'
-  workflow_dispatch:
   merge_group:
 
 jobs:
