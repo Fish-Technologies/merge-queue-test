@@ -10,8 +10,8 @@ on:
     paths:
       - 'server/**'
   merge_group:
-    paths:
-      - 'server/**'
+#    paths:
+#      - 'server/**'
   workflow_dispatch:
 
 jobs:
