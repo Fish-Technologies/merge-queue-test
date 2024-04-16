@@ -23,7 +23,7 @@ jobs:
 
       - name: Run Server CI (conditional sleep)
         # run only if some file in 'server' folder was changed
-      - if: steps.paths.outputs.server-service == 'true'
+        if: steps.paths.outputs.server-service == 'true'
         run: |
           if [ "${{  github.event_name }}" == "merge_group" ]; then
             echo "Running in merge queue..."
