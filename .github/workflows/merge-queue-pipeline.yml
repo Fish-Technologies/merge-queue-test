@@ -12,7 +12,7 @@ on:
 jobs:
   changes:
     runs-on: ubuntu-latest
-#    if: github.event_name == 'merge_group'
+    if: github.event_name == 'merge_group'
     outputs:
       server: ${{ steps.filters.outputs.server }}
     steps:
@@ -37,7 +37,7 @@ jobs:
 # to additional jobs which can reference separate workflows via `needs: [required-job]`
   merge-queue-pipeline-success:
     name: Merge Queue Pipeline Success
-    if: github.event_name == 'merge_group' && success()
+    if: github.event_name == 'merge_group'
     needs: [changes, server-ci]
     runs-on: ubuntu-latest
     steps:
