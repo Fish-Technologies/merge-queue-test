@@ -12,11 +12,8 @@ on:
 jobs:
   check-paths:
     runs-on: ubuntu-latest
+    if: github.event_name == 'merge_group'
     steps:
-      - run: |
-          if [ "${{  github.event_name }}" != "merge_group" ]; then
-            exit 0
-          fi
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -37,9 +34,9 @@ jobs:
 # to additional jobs which can reference separate workflows via `needs: [required-job]`
   merge-queue-pipeline-success:
     name: Merge Queue Pipeline Success
+    if: github.event_name == 'merge_group' && success()
     needs: [check-paths, server-ci]
     runs-on: ubuntu-latest
     steps:
       - run: |
           echo "Merge Queue Pipeline Finished"
-    if: success()
