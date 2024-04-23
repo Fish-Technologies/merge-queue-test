@@ -1,13 +1,15 @@
 name: Merge Queue Pipeline
 
+# This workflow conditionally runs which workflows should run as part of the merge queue pipeline
+# Since this gets invoked for every pull request attempting to merge with the target branch ('dev')
+# it is required to run and cannot be skipped using GA event paths.
+
 on:
-  merge_group:
-  workflow_dispatch:
-  pull_request:
+  workflow_call:
 
 jobs:
   check-paths:
-    name: Run Server CI Tests
+    name: Check Paths
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -22,6 +24,7 @@ jobs:
               - 'server/**'
 
   server-ci:
+    name: Server CI
     needs: check-paths
     if: needs.check-paths.outputs.server-paths == 'true'
     uses: ./.github/workflows/server-ci-tests.yml
