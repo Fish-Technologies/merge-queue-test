@@ -44,6 +44,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo cancelled: ${{ cancelled()}}, ${{contains(needs.*.result, 'cancelled')}}, ${{contains(needs.*.result, 'failure') }}
+          echo github.event_name: ${{ github.event_name }}
+          echo needs.changes.result: ${{ needs.changes.result }}
+          echo needs.server-ci.result: ${{ needs.server-ci.result }}
           echo "Some workflows have failed!"
           exit 1
