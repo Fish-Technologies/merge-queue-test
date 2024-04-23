@@ -6,12 +6,17 @@ name: Merge Queue Pipeline
 
 on:
   merge_group:
+  pull_request:
   workflow_dispatch:
 
 jobs:
   check-paths:
     runs-on: ubuntu-latest
     steps:
+      - run: |
+          if [ "${{  github.event_name }}" != "merge_group" ]; then
+            exit 0
+          fi
       - name: Checkout code
         uses: actions/checkout@v2
 
