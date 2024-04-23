@@ -12,4 +12,5 @@ on:
 jobs:
   merge-queue-pipeline:
     name: Merge Queue Pipeline
+    if: true
     uses: ./.github/workflows/merge-queue-pipeline.yml
