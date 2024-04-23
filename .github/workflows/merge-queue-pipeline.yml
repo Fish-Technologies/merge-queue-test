@@ -7,7 +7,7 @@ on:
 
 jobs:
   check-paths:
-    name: Run Server CI Tests
+    name: Check Paths
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
