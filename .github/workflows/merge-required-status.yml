@@ -10,7 +10,11 @@ on:
   workflow_dispatch:
 
 jobs:
+  naming-runner:
+    runs-on: ubuntu-latest
+    name: Naming Runner
+
   merge-queue-pipeline:
+    needs: naming-runner
     name: Merge Queue Pipeline
-    if: true
     uses: ./.github/workflows/merge-queue-pipeline.yml
