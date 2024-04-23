@@ -36,12 +36,10 @@ jobs:
 # This is the job we use as the required status check in the branch protection settings, use it to refer
 # to additional jobs which can reference separate workflows via `needs: [required-job]`. It will be skipped
 # (which GitHub Actions considers a passing/successful status check) unless one of the needs jobs fails or
-# is cancelled.
+# is cancelled. It does not consider a skipped needs job a failure which ultimately allows us to run this on
+# all PRs and quickly pass for any with changes that don't need to trigger parts of the pipeline
   merge-queue-pipeline:
     name: Merge Queue Pipeline
-#    if: always() &&
-#      github.event_name == 'merge_group' &&
-#      (cancelled() || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'failure'))
     if: github.event_name == 'merge_group' && (cancelled() || failure())
     needs: [changes, server-ci]
     runs-on: ubuntu-latest
