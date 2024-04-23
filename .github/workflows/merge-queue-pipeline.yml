@@ -2,6 +2,7 @@ name: Merge Queue Pipeline
 
 on:
   merge_group:
+  workflow_dispatch:
 
 jobs:
   check-paths:
