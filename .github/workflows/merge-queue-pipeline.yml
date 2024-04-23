@@ -5,11 +5,10 @@ name: Merge Queue Pipeline
 # it is required to run and cannot be skipped using GA event paths.
 
 on:
-  workflow_call:
+  merge_group:
 
 jobs:
   check-paths:
-    name: Check Paths
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -24,7 +23,14 @@ jobs:
               - 'server/**'
 
   server-ci:
-    name: Server CI
-    needs: check-paths
+    needs: [check-paths]
     if: needs.check-paths.outputs.server-paths == 'true'
     uses: ./.github/workflows/server-ci-tests.yml
+
+# This is the job we use as the required status check in the branch protection settings, use it to refer
+# to additional jobs which can reference separate workflows via `needs: [required-job]`
+  merge-queue-pipeline-success:
+    name: Merge Queue Pipeline Success
+    needs: [server-ci]
+    runs-on: ubuntu-latest
+    if: success()
