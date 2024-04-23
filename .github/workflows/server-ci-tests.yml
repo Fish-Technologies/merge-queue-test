@@ -1,0 +1,25 @@
+name: Server CI Tests
+
+on:
+  pull_request:
+    paths:
+      - 'server/**'
+  push:
+    paths:
+      - 'server/**'
+  workflow_dispatch:
+
+jobs:
+  search-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          if [ "${{  github.event_name }}" == "merge_group" ]; then
+            echo "Running in merge queue..."
+            sleep 120
+            echo "Failing after sleep for demonstration"
+            exit 1
+          else
+            echo "Regular CI run..."
+            sleep 30
+          fi
