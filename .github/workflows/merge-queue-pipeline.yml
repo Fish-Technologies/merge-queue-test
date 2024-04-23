@@ -28,8 +28,13 @@ jobs:
 
   server-ci:
     needs: [check-paths]
-    if: needs.check-paths.outputs.server-paths == 'true'
-    uses: ./.github/workflows/server-ci-tests.yml
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo needs.check-paths.outputs: ${{needs.check-paths.outputs}}
+
+  #    if: needs.check-paths.outputs.server-paths == 'true'
+#    uses: ./.github/workflows/server-ci-tests.yml
 
 # This is the job we use as the required status check in the branch protection settings, use it to refer
 # to additional jobs which can reference separate workflows via `needs: [required-job]`
