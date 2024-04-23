@@ -6,6 +6,7 @@ name: Merge Queue Pipeline
 
 on:
   merge_group:
+  pull_request:
   workflow_dispatch:
 
 jobs:
