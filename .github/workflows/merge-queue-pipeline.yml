@@ -32,7 +32,7 @@ jobs:
 # to additional jobs which can reference separate workflows via `needs: [required-job]`
   merge-queue-pipeline-success:
     name: Merge Queue Pipeline Success
-    needs: [server-ci]
+    needs: [check-paths, server-ci]
     runs-on: ubuntu-latest
     steps:
       - run: |
