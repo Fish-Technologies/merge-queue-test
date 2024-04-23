@@ -1,0 +1,14 @@
+name: Merge Required Status
+
+# This workflow defines a single named job which has been added to the 'dev' branch's
+# required status checks for merging. It then invokes the actual merge-queue-pipeline
+# which conditionally executes additional jobs. This is useful so that we don't need to
+# adjust the branch settings' required checks everytime we adjust the pipeline
+
+on:
+  merge_group:
+
+jobs:
+  merge-queue-pipeline:
+    name: Merge Queue Pipeline
+    uses: ./.github/workflows/merge-queue-pipeline.yml
