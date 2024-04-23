@@ -34,4 +34,7 @@ jobs:
     name: Merge Queue Pipeline Success
     needs: [server-ci]
     runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Merge Queue Pipeline Finished"
     if: success()
