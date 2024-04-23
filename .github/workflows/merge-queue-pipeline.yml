@@ -44,5 +44,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
+          echo cancelled: ${{ cancelled()}}, ${{contains(needs.*.result, 'cancelled')}}, ${{contains(needs.*.result, 'failure') }}
           echo "Some workflows have failed!"
           exit 1
