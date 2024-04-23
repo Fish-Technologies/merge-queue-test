@@ -12,7 +12,9 @@ on:
 jobs:
   naming-runner:
     runs-on: ubuntu-latest
-    name: Naming Runner
+    steps:
+      - run: |
+          echo "Beginning merge queue pipeline..."
 
   merge-queue-pipeline:
     needs: naming-runner
