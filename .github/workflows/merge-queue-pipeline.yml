@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo needs.check-paths.outputs: ${{needs.check-paths.outputs}}
+          echo needs.check-paths.outputs.server-paths: ${{needs.check-paths.server-paths}}
 
   #    if: needs.check-paths.outputs.server-paths == 'true'
 #    uses: ./.github/workflows/server-ci-tests.yml
