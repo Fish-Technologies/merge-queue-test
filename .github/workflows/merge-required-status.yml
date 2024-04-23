@@ -18,5 +18,5 @@ jobs:
 
   merge-queue-pipeline:
     needs: naming-runner
-    name: Merge Queue Pipeline
+    name: Required Check Workflow
     uses: ./.github/workflows/merge-queue-pipeline.yml
