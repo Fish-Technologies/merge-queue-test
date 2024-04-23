@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  check-paths:
+  paths:
     runs-on: ubuntu-latest
 #    if: github.event_name == 'merge_group'
     steps:
@@ -27,11 +27,11 @@ jobs:
               - 'server/**'
 
   server-ci:
-    needs: check-paths
+    needs: paths
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo needs.check-paths.outputs.server-paths: ${{needs.check-paths.outputs.server-paths}}
+          echo needs.paths.outputs.server-paths: ${{needs.paths.outputs.server-paths}}
 
   #    if: needs.check-paths.outputs.server-paths == 'true'
 #    uses: ./.github/workflows/server-ci-tests.yml
