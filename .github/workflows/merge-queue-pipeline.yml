@@ -34,20 +34,15 @@ jobs:
     uses: ./.github/workflows/server-ci-tests.yml
 
 # This is the job we use as the required status check in the branch protection settings, use it to refer
-# to additional jobs which can reference separate workflows via `needs: [required-job]`
-  merge-queue-pipeline-success:
-    name: Merge Queue Pipeline Success
-    if: github.event_name == 'merge_group'
+# to additional jobs which can reference separate workflows via `needs: [required-job]`. It will be skipped
+# (which GitHub Actions considers a passing/successful status check) unless one of the needs jobs fails or
+# is cancelled.
+  merge-queue-pipeline:
+    name: Merge Queue Pipeline
+    if: github.event_name == 'merge_group' && ${{ cancelled() || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'failure') }}
     needs: [changes, server-ci]
     runs-on: ubuntu-latest
     steps:
-      - name: Check job statuses
-        run: |
-          if [[ 
-            ${{ needs.changes.result }} == 'failure' || 
-            ${{ needs.server-ci.result }} == 'failure' 
-          ]]; then
-            echo "Failing due to dependent job failure."
-            exit 1
-          fi
-          echo "Merge Queue Pipeline Finished"
+      - run: |
+          echo "Some workflows have failed!"
+          exit 1
