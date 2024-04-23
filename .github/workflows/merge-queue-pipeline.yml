@@ -39,7 +39,9 @@ jobs:
 # is cancelled.
   merge-queue-pipeline:
     name: Merge Queue Pipeline
-    if: github.event_name == 'merge_group' && (${{ cancelled() || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'failure') }})
+    if: always() &&
+      github.event_name == 'merge_group' &&
+      (${{ cancelled() || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'failure') }})
     needs: [changes, server-ci]
     runs-on: ubuntu-latest
     steps:
