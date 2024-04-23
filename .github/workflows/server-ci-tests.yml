@@ -4,9 +4,6 @@ on:
   pull_request:
     paths:
       - 'server/**'
-  push:
-    paths:
-      - 'server/**'
   workflow_dispatch:
 
 jobs:
