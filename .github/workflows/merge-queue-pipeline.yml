@@ -41,5 +41,13 @@ jobs:
     needs: [changes, server-ci]
     runs-on: ubuntu-latest
     steps:
-      - run: |
+      - name: Check job statuses
+        run: |
+          if [[ 
+            ${{ needs.changes.result }} == 'failure' || 
+            ${{ needs.server-ci.result }} == 'failure' 
+          ]]; then
+            echo "Failing due to dependent job failure."
+            exit 1
+          fi
           echo "Merge Queue Pipeline Finished"
