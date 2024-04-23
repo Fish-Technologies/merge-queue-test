@@ -41,7 +41,7 @@ jobs:
   merge-queue-pipeline-success:
     name: Merge Queue Pipeline Success
     if: github.event_name == 'merge_group' && success()
-    needs: [check-paths, server-ci]
+    needs: [paths, server-ci]
     runs-on: ubuntu-latest
     steps:
       - run: |
