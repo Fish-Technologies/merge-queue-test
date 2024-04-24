@@ -12,7 +12,7 @@ on:
 jobs:
   changes:
     runs-on: ubuntu-latest
-    if: github.event_name == 'merge_group'
+#    if: github.event_name == 'merge_group'
     outputs:
       server: ${{ steps.filters.outputs.server }}
     steps:
@@ -40,7 +40,8 @@ jobs:
 # all PRs and quickly pass for any with changes that don't need to trigger parts of the pipeline
   merge-queue-pipeline:
     name: Merge Queue Pipeline
-    if: github.event_name == 'merge_group' && (cancelled() || failure())
+#    if: github.event_name == 'merge_group' && (cancelled() || failure())
+    if: cancelled() || failure()
     needs: [changes, server-ci]
     runs-on: ubuntu-latest
     steps:
