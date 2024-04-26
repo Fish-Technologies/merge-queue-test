@@ -12,7 +12,6 @@ on:
 jobs:
   changes:
     runs-on: ubuntu-latest
-    if: github.event_name == 'merge_group'
     outputs:
       server: ${{ steps.filters.outputs.server }}
     steps:
@@ -28,10 +27,10 @@ jobs:
             server:
               - 'server/**'
 
-  server-ci:
+  server-ci-cd:
     needs: changes
     if: ${{ needs.changes.outputs.server == 'true' }}
-    uses: ./.github/workflows/server-ci-tests.yml
+    uses: ./.github/workflows/server-ci-cd.yml
 
 # This is the job we use as the required status check in the branch protection settings, use it to refer
 # to additional jobs which can reference separate workflows via `needs: [required-job]`. It will be skipped
@@ -40,10 +39,10 @@ jobs:
 # all PRs and quickly pass for any with changes that don't need to trigger parts of the pipeline
   merge-queue-pipeline:
     name: Merge Queue Pipeline
-    if: github.event_name == 'merge_group' && (cancelled() || failure())
-    needs: [changes, server-ci]
+    if: cancelled() || failure()
+    needs: [changes, server-ci-cd]
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "Some workflows have failed!"
+          echo "Some workflows were cancelled or have failed!"
           exit 1

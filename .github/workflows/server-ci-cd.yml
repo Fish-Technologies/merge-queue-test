@@ -1,0 +1,28 @@
+name: Server CI CD
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  server-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Server CI
+        run: |
+          if [ "${{  github.event_name }}" == "merge_group" ]; then
+            echo "Running CI in MQ..."
+            sleep 60
+          else
+            echo "Running CI in PR..."
+            sleep 30
+          fi
+
+      - name: Run Server CD
+        if: github.event_name == 'merge_group'
+        run: |
+          echo "Deploying in merge queue..."
+          sleep 120
+          echo "Failing deploy for testing"
+          exit 1
+      
