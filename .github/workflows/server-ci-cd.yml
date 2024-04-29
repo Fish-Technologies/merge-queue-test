@@ -16,10 +16,10 @@ jobs:
         with:
           stage: 'local'
       - name: Run Server Deploy
-        if: ${{ github.event_name == 'merge_group' }}
+        if: ${{ github.event_name == 'merge_group' && Success() }}
         uses: ./.github/workflows/actions/server-cd
       - name: Run Server CI (int)
-        if: ${{ github.event_name == 'merge_group' }} && Success()
+        if: ${{ github.event_name == 'merge_group' && Success() }}
         uses: ./.github/workflows/actions/server-ci
         with:
           stage: 'int'
