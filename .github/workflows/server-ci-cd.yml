@@ -8,17 +8,19 @@ jobs:
   server-ci:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Run Server CI
         if: Success()
-        uses: './workflows/server-ci.yml'
+        uses: ./.github/workflows/server-ci.yml
         with:
           stage: 'local'
       - name: Run Server Deploy
         if: ${{ github.event_name == 'merge_group' }}
-        uses: './workflows/server-cd.yml'
+        uses: ./.github/workflows/server-cd.yml'
       - name: Run Server CI (int)
         if: ${{ github.event_name == 'merge_group' }} && Success()
-        uses: './workflows/server-ci.yml'
+        uses: ./.github/workflows/server-ci.yml
         with:
           stage: 'int'
 
