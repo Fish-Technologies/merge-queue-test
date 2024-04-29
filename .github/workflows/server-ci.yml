@@ -1,18 +1,22 @@
 name: 'Composite CI Action'
-description: 'Run CI process'
-inputs:
-  stage:
-    required: true
-    description: 'Environment to run CI in'
-runs:
-  using: 'composite'
-  steps:
-    - name: Run CI
-      run: |
-        echo "Running CI in ${{ inputs.stage }}..."
-        if [ "${{ inputs.stage }}" == "int" ]; then
-          sleep 60
-        else
-          sleep 30
-        fi
-      shell: bash
+on:
+  workflow_call:
+    inputs:
+      stage:
+        required: true
+        type: string
+        description: 'Environment to run CI in'
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run CI
+        run: |
+          echo "Running CI in ${{ inputs.stage }}..."
+          if [ "${{ inputs.stage }}" == "int" ]; then
+            sleep 60
+          else
+            sleep 30
+          fi
+        shell: bash

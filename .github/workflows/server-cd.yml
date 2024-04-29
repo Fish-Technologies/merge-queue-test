@@ -1,10 +1,13 @@
 name: 'Composite Deploy Action'
-description: 'Run Deploy process'
-runs:
-  using: 'composite'
-  steps:
-    - name: Run Deploy
-      run: |
-        echo "Running Deploy..."
-        sleep 60
-      shell: bash
+on:
+  workflow_call:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Deploy
+        run: |
+          echo "Running Deploy..."
+          sleep 60
+        shell: bash
