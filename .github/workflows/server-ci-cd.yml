@@ -12,15 +12,15 @@ jobs:
         uses: actions/checkout@v2
       - name: Run Server CI
         if: Success()
-        uses: ./.github/workflows/server-ci.yml
+        uses: ./.github/workflows/actions/server-ci
         with:
           stage: 'local'
       - name: Run Server Deploy
         if: ${{ github.event_name == 'merge_group' }}
-        uses: ./.github/workflows/server-cd.yml'
+        uses: ./.github/workflows/actions/server-cd
       - name: Run Server CI (int)
         if: ${{ github.event_name == 'merge_group' }} && Success()
-        uses: ./.github/workflows/server-ci.yml
+        uses: ./.github/workflows/actions/server-ci
         with:
           stage: 'int'
 
