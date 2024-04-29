@@ -5,6 +5,7 @@ runs:
   steps:
     - name: Run Deploy
       run: |
+        echo github.event_name="${{ github.event_name }}"
         echo "Running Deploy..."
         sleep 60
       shell: bash
