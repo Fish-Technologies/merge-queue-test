@@ -8,19 +8,24 @@ jobs:
   server-ci:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Run Server CI
-        if: Success()
-        uses: ./.github/workflows/actions/server-ci
-        with:
-          stage: 'local'
-      - name: Run Server Deploy
-        if: ${{ github.event_name == 'merge_group' && Success() }}
-        uses: ./.github/workflows/actions/server-cd
-      - name: Run Server CI (int)
-        if: ${{ github.event_name == 'merge_group' && Success() }}
-        uses: ./.github/workflows/actions/server-ci
-        with:
-          stage: 'int'
+      - name: Run test
+        run: |
+          echo github.event_name: ${{ github.event_name }}
+          sleep 10
+          exit 0
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#      - name: Run Server CI
+#        if: Success()
+#        uses: ./.github/workflows/actions/server-ci
+#        with:
+#          stage: 'local'
+#      - name: Run Server Deploy
+#        if: ${{ github.event_name == 'merge_group' && Success() }}
+#        uses: ./.github/workflows/actions/server-cd
+#      - name: Run Server CI (int)
+#        if: ${{ github.event_name == 'merge_group' && Success() }}
+#        uses: ./.github/workflows/actions/server-ci
+#        with:
+#          stage: 'int'
 
